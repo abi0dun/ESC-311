@@ -66,15 +66,36 @@ transition:height .3s,top .3s;
 .mlabel strong{display:block;font-family:‘Cinzel’,Georgia,serif;font-size:.68rem;letter-spacing:.1em;color:#f0e8d0;}
 .mlabel small{font-size:.7rem;color:rgba(184,200,176,.45);font-family:Georgia,serif;}
 
-.page-header{
-min-height:42vh;
-display:flex;align-items:center;justify-content:center;
-padding-top:100px;
-text-align:center;
-background:#041a0b;
-border-bottom-left-radius:30px;
-border-bottom-right-radius:30px;
-position:relative;overflow:hidden;
+  .page-header {
+  min-height: 42vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 100px;
+  text-align: center;
+
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+
+  position: relative;
+  overflow: hidden;
+}
+.bg-slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  top: 0;
+  left: 0;
+
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+  z-index: 1;
+}
+
+.bg-slide.active {
+  opacity: 1;
 }
 .page-header::before{
 content:’’;position:absolute;inset:0;
@@ -302,6 +323,9 @@ footer::before{content:’’;display:block;height:1px;background:linear-gradien
 </div>
 
 <div class="page-header">
+    <img class="bg-slide active" src="IMG_.jpeg">
+  <img class="bg-slide" src="IMG_.jpeg">
+  <img class="bg-slide" src="IMG_.jpeg">
   <div class="ph-inner">
     <div class="ph-pill">✦ The Collective ✦</div>
     <h1 class="ph-h1">About <em>Our</em><br>Members</h1>
@@ -495,6 +519,21 @@ footer::before{content:’’;display:block;height:1px;background:linear-gradien
 </footer>
 
 <script>
+
+const slides = document.querySelectorAll(".bg-slide");
+let current = 0;
+
+function changeSlide() {
+  slides[current].classList.remove("active");
+
+  current++;
+  if (current >= slides.length) current = 0;
+
+  slides[current].classList.add("active");
+}
+
+setInterval(changeSlide, 4000);
+  
 function toggleMenu() {
   document.getElementById('ham').classList.toggle('open');
   document.getElementById('mobMenu').classList.toggle('open');
