@@ -75,6 +75,37 @@ border-bottom-left-radius:30px;
 border-bottom-right-radius:30px;
 position:relative;overflow:hidden;
 }
+
+.bg-slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  top: 0;
+  left: 0;
+
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+  z-index: 1;
+}
+
+.bg-slide.active {
+  opacity: 1;
+}
+
+.base-bg {
+  background: #041a0b;
+}
+.bg-slide img,
+img.bg-slide {
+  object-fit: cover;
+}
+  .bg-slide.active {
+  opacity: 1;
+}
+
+
 .page-header::before{
 content:’’;position:absolute;inset:0;
 background:radial-gradient(ellipse 75% 65% at 50% 100%,rgba(20,82,40,.5) 0%,transparent 65%);
@@ -293,6 +324,12 @@ footer::before{content:’’;display:block;height:1px;background:linear-gradien
 </div>
 
 <div class="page-header">
+
+<div class="bg-slide active base-bg"></div>
+<img class="bg-slide" src="a.jpg">
+  <img class="bg-slide" src="IMG_1158.jpeg">
+  <img class="bg-slide" src="IMG_1160.jpeg">
+
   <div class="ph-inner">
     <div class="ph-pill">✦ Get In Touch ✦</div>
     <h1 class="ph-h1"><em>Contact</em><br>Our Members</h1>
@@ -459,6 +496,21 @@ footer::before{content:’’;display:block;height:1px;background:linear-gradien
 </footer>
 
 <script>
+
+const slides = document.querySelectorAll(".bg-slide");
+let current = 0;
+
+function changeSlide() {
+  slides[current].classList.remove("active");
+
+  current++;
+  if (current >= slides.length) current = 0;
+
+  slides[current].classList.add("active");
+}
+
+setInterval(changeSlide, 4000);
+
 function toggleMenu() {
   document.getElementById('ham').classList.toggle('open');
   document.getElementById('mobMenu').classList.toggle('open');
